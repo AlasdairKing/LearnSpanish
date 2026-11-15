@@ -89,6 +89,7 @@
   let recognition = null;
   let listening = false;
   let awaitingAnswer = false;
+  let preserveStatusOnEnd = false;
 
   /** @type {Verb[]} */
   let queue = [];
@@ -154,22 +155,34 @@
     });
   }
 
-  function stopListening() {
+  function stopSpeech() {
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+  }
+
+  function stopListening({ abort = false } = {}) {
     listening = false;
     micBtn.classList.remove("is-listening");
     micBtn.setAttribute("aria-pressed", "false");
-    if (recognition) {
-      try {
-        recognition.stop();
-      } catch (_) {
-        /* ignore */
-      }
+    if (!recognition) return;
+    try {
+      if (abort) recognition.abort();
+      else recognition.stop();
+    } catch (_) {
+      /* ignore */
     }
+  }
+
+  function leaveTest() {
+    awaitingAnswer = false;
+    preserveStatusOnEnd = true;
+    stopListening({ abort: true });
+    stopSpeech();
+    showView(menuView);
   }
 
   function speakSpanish(text) {
     if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
+    stopSpeech();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = SPEECH_LANG;
 
@@ -205,20 +218,25 @@
   }
 
   function startSession() {
-    stopListening();
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    awaitingAnswer = false;
+    preserveStatusOnEnd = true;
+    stopListening({ abort: true });
+    stopSpeech();
 
     queue = shuffle(VERBS).slice(0, SESSION_SIZE);
     index = 0;
     score = 0;
     awaitingAnswer = true;
+    preserveStatusOnEnd = false;
     showView(testView);
     resetPromptUi();
   }
 
   function finishSession() {
-    stopListening();
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    awaitingAnswer = false;
+    preserveStatusOnEnd = true;
+    stopListening({ abort: true });
+    stopSpeech();
     scoreValue.textContent = `${score} / ${SESSION_SIZE}`;
     if (score >= 9) {
       scoreNote.textContent = "Excelente — those verbs are sticking.";
@@ -296,6 +314,7 @@
 
     recognition.onstart = () => {
       listening = true;
+      preserveStatusOnEnd = false;
       micBtn.classList.add("is-listening");
       micBtn.setAttribute("aria-pressed", "true");
       statusText.textContent = "Listening…";
@@ -305,21 +324,29 @@
       listening = false;
       micBtn.classList.remove("is-listening");
       micBtn.setAttribute("aria-pressed", "false");
-      if (awaitingAnswer) {
+      if (awaitingAnswer && !preserveStatusOnEnd) {
         statusText.textContent = "Tap the mic to try again.";
       }
+      preserveStatusOnEnd = false;
     };
 
     recognition.onerror = (event) => {
       listening = false;
       micBtn.classList.remove("is-listening");
       micBtn.setAttribute("aria-pressed", "false");
+      if (event.error === "aborted") {
+        preserveStatusOnEnd = true;
+        return;
+      }
       if (event.error === "not-allowed") {
+        preserveStatusOnEnd = true;
         statusText.textContent = "Microphone permission blocked.";
-      } else if (event.error !== "aborted" && event.error !== "no-speech") {
-        statusText.textContent = "Couldn’t catch that — try again.";
       } else if (event.error === "no-speech" && awaitingAnswer) {
+        preserveStatusOnEnd = true;
         statusText.textContent = "No speech heard — tap the mic again.";
+      } else if (awaitingAnswer) {
+        preserveStatusOnEnd = true;
+        statusText.textContent = "Couldn’t catch that — try again.";
       }
     };
 
@@ -356,22 +383,21 @@
 
   function goNext() {
     if (awaitingAnswer) return;
+    stopSpeech();
+    stopListening({ abort: true });
     if (index >= SESSION_SIZE - 1) {
       finishSession();
       return;
     }
     index += 1;
     awaitingAnswer = true;
+    preserveStatusOnEnd = false;
     resetPromptUi();
   }
 
   startTest1.addEventListener("click", startSession);
-  quitTest.addEventListener("click", () => {
-    stopListening();
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
-    showView(menuView);
-  });
-  backToMenu.addEventListener("click", () => showView(menuView));
+  quitTest.addEventListener("click", leaveTest);
+  backToMenu.addEventListener("click", leaveTest);
   micBtn.addEventListener("click", toggleListening);
   dontKnowBtn.addEventListener("click", () => {
     if (!awaitingAnswer) return;
