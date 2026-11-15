@@ -9,24 +9,25 @@ This tests your recall for the most common Spanish verbs. The vocabulary is belo
 
 Ten words, chosen at random - but not repeated in one session - should be presented in the test. At the end the user gets a score out of ten, then returned to the main menu. 
 
-Spanish,Meaning
-ser,to be
-estar,to be
-tener,to have
-hacer,to do/make
-ir,to go
-gustar,to like
-jugar,to play
-ver,to see/watch
-comer,to eat
-beber,to drink
-vivir,to live
-estudiar,to study
-trabajar,to work
-hablar,to speak/talk
-leer,to read
-escribir,to write
-salir,to go out/leave
-querer,to want
-poder,can/to be able to
-deber,should/must
+| Spanish | Meaning |
+| :--- | :--- |
+| ser | to be |
+| estar | to be |
+| tener | to have |
+| hacer | to do/make |
+| ir | to go |
+| gustar | to like |
+| jugar | to play |
+| ver | to see/watch |
+| comer | to eat |
+| beber | to drink |
+| vivir | to live |
+| estudiar | to study |
+| trabajar | to work |
+| hablar | to speak/talk |
+| leer | to read |
+| escribir | to write |
+| salir | to go out/leave |
+| querer | to want |
+| poder | can/to be able to |
+| deber | should/must |
