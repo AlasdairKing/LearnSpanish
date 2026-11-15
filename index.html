@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LearnSpanish</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section id="menu-view" class="view view--menu is-active" aria-labelledby="brand">
+        <div class="hero-plane" aria-hidden="true">
+          <img src="assets/plaza.svg" alt="" width="1600" height="1000" />
+        </div>
+        <div class="menu-copy">
+          <p class="brand" id="brand">LearnSpanish</p>
+          <h1 class="headline">Speak the words you want to keep.</h1>
+          <p class="lede">
+            Practice recall out loud. The browser listens in Spanish (Spain) and
+            helps you remember the verbs that matter most.
+          </p>
+          <div class="cta-row">
+            <button type="button" class="btn btn--primary" id="start-test-1">
+              Test 1: Common verbs
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="test-view" class="view view--test" hidden aria-labelledby="prompt-label">
+        <div class="shell">
+          <header class="test-bar">
+            <p class="brand brand--compact">LearnSpanish</p>
+            <p class="progress" id="progress-label">1 / 10</p>
+            <button type="button" class="btn btn--ghost" id="quit-test">Menu</button>
+          </header>
+
+          <div class="prompt-stage">
+            <p class="prompt-kicker" id="prompt-label">Say the Spanish verb for</p>
+            <h2 class="prompt-meaning" id="prompt-meaning">to have</h2>
+            <p class="status" id="status-text" role="status" aria-live="polite">
+              Tap the mic, then speak.
+            </p>
+
+            <div class="listen-row">
+              <button
+                type="button"
+                class="mic-btn"
+                id="mic-btn"
+                aria-pressed="false"
+                aria-label="Start listening"
+              >
+                <span class="mic-btn__ring"></span>
+                <span class="mic-btn__core"></span>
+              </button>
+              <button type="button" class="btn btn--ghost" id="dont-know-btn">
+                Don’t know
+              </button>
+              <p class="heard" id="heard-text" hidden></p>
+            </div>
+
+            <div class="reveal" id="reveal" hidden>
+              <p class="reveal__label">Answer</p>
+              <p class="reveal__verb" id="reveal-verb"></p>
+              <button type="button" class="btn btn--primary" id="next-btn" hidden>
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="score-view" class="view view--score" hidden aria-labelledby="score-heading">
+        <div class="shell shell--center">
+          <p class="brand brand--compact">LearnSpanish</p>
+          <h2 class="score-heading" id="score-heading">Session complete</h2>
+          <p class="score-value" id="score-value">0 / 10</p>
+          <p class="score-note" id="score-note">Nice work — keep speaking.</p>
+          <button type="button" class="btn btn--primary" id="back-to-menu">
+            Back to menu
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <div id="unsupported" class="banner" hidden>
+      Speech recognition is not available in this browser. Use “Don’t know” to
+      reveal each verb, or try Chrome or Edge for microphone practice.
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

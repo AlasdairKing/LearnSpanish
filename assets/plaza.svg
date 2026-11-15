@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0%" stop-color="#1a4a63"/>
+      <stop offset="45%" stop-color="#2f6f7c"/>
+      <stop offset="100%" stop-color="#c9a06a"/>
+    </linearGradient>
+    <linearGradient id="sunGlow" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#ffd27a" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ffb347" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3e2c7"/>
+      <stop offset="100%" stop-color="#d8b48a"/>
+    </linearGradient>
+    <pattern id="tiles" width="48" height="48" patternUnits="userSpaceOnUse">
+      <rect width="48" height="48" fill="#0f3d45"/>
+      <path d="M0 24h48M24 0v48" stroke="#1f6a74" stroke-width="2"/>
+      <circle cx="24" cy="24" r="7" fill="none" stroke="#d4a24c" stroke-width="1.5"/>
+      <path d="M24 12v24M12 24h24" stroke="#87c4b8" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <circle cx="1180" cy="220" r="220" fill="url(#sunGlow)"/>
+  <circle cx="1180" cy="220" r="70" fill="#ffe2a0"/>
+
+  <path d="M0 620 C280 540 520 700 820 620 C1080 550 1320 690 1600 610 L1600 1000 L0 1000 Z" fill="#1c3f3a" opacity="0.55"/>
+  <path d="M0 680 C300 610 560 760 860 690 C1120 630 1360 760 1600 700 L1600 1000 L0 1000 Z" fill="#16352f"/>
+
+  <g transform="translate(80,280)">
+    <rect x="0" y="80" width="620" height="420" fill="url(#wall)"/>
+    <rect x="40" y="40" width="540" height="80" fill="#ead2ab"/>
+    <rect x="0" y="120" width="620" height="180" fill="url(#tiles)"/>
+    <path d="M40 300 H200 V500 H40 Z M230 300 H390 V500 H230 Z M420 300 H580 V500 H420 Z" fill="#0b2730"/>
+    <path d="M40 300 H200 A80 80 0 0 1 40 300 Z M230 300 H390 A80 80 0 0 1 230 300 Z M420 300 H580 A80 80 0 0 1 420 300 Z" fill="#123842"/>
+    <rect x="70" y="360" width="100" height="140" fill="#f0d7a8" opacity="0.35"/>
+    <rect x="260" y="360" width="100" height="140" fill="#f0d7a8" opacity="0.28"/>
+    <rect x="450" y="360" width="100" height="140" fill="#f0d7a8" opacity="0.32"/>
+  </g>
+
+  <g transform="translate(900,340)">
+    <rect x="40" y="60" width="480" height="360" fill="#e8d0a8"/>
+    <rect x="70" y="20" width="420" height="70" fill="#d7b585"/>
+    <path d="M90 140 H210 V420 H90 Z M250 140 H370 V420 H250 Z M410 140 H530 V420 H410 Z" fill="#102a33"/>
+    <path d="M90 140 H210 A60 60 0 0 1 90 140 Z M250 140 H370 A60 60 0 0 1 250 140 Z M410 140 H530 A60 60 0 0 1 410 140 Z" fill="#163743"/>
+  </g>
+
+  <rect x="0" y="860" width="1600" height="140" fill="#0e2a28"/>
+  <path d="M120 900h180M380 930h240M720 910h160M980 940h220M1300 915h180" stroke="#d4a24c" stroke-width="3" stroke-linecap="round" opacity="0.45"/>
+</svg>
